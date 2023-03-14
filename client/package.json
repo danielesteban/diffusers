@@ -1,0 +1,31 @@
+{
+  "name": "diffusers-client",
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "start": "pnpm build -w"
+  },
+  "type": "module",
+  "dependencies": {
+    "path-to-regexp": "^6.2.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^4.0.3",
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-html": "^1.0.2",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-replace": "^5.0.2",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "dotenv": "^16.0.3",
+    "postcss": "^8.4.21",
+    "rollup": "^3.19.1",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-serve": "^2.0.2",
+    "rollup-plugin-svelte": "^7.1.4",
+    "svelte": "^3.56.0",
+    "svelte-preprocess": "^5.0.2",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5"
+  }
+}

@@ -1,0 +1,9 @@
+__pycache__
+.env
+build
+dist
+node_modules
+worker/*.spec
+worker/config.json
+worker/env
+worker/models

@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.FileOptions {
+  string protocol_version = 51000;
+}
+
+option (protocol_version) = '0.0.1';
+
+message Pipelines {
+  bool depth = 1;
+  bool diffusion = 2;
+  bool upscale = 3;
+}
+
+message Config {
+  Pipelines pipelines = 1;
+  string version = 2;
+}
+
+message DepthJob {
+  bytes image = 1;
+}
+
+message DiffusionJob {
+  bytes image = 1;
+  string prompt = 2;
+  string negative_prompt = 3;
+  int32 steps = 4;
+  float strength = 5;
+}
+
+message UpscaleJob {
+  bytes image = 1;
+}
+
+message Job {
+  oneof job {
+    DepthJob depth = 1;
+    DiffusionJob diffusion = 2;
+    UpscaleJob upscale = 3;
+  }
+}

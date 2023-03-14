@@ -1,0 +1,18 @@
+{
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+  "search.exclude": {
+    "**/__pycache__": true,
+    "**/.vscode": true,
+    "**/build": true,
+    "**/dist": true,
+    "**/node_modules": true,
+  },
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.vscode": true,
+    "**/build": true,
+    "**/dist": true,
+    "**/node_modules": true,
+  }
+}

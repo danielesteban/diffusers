@@ -1,0 +1,103 @@
+name: CI
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  client:
+    env:
+      CLIENT_BASENAME: __CLIENT_BASENAME__
+      CLIENT_FONT: __CLIENT_FONT__
+      CLIENT_TITLE: __CLIENT_TITLE__
+      SERVER_URL: __SERVER_URL__
+    outputs:
+      version: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
+    permissions:
+      contents: read
+      packages: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'pnpm'
+          cache-dependency-path: 'client/pnpm-lock.yaml'
+      - name: Install
+        run: pnpm -C client install
+      - name: Build
+        run: pnpm -C client build
+      - uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ghcr.io/${{ github.repository }}/client
+      - uses: docker/build-push-action@v4
+        with:
+          context: client
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  server:
+    outputs:
+      version: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
+    permissions:
+      contents: read
+      packages: write
+    runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'pnpm'
+          cache-dependency-path: 'server/pnpm-lock.yaml'
+      - name: Install
+        run: pnpm -C server install
+      - name: Build
+        run: pnpm -C server build
+      - name: Test
+        run: pnpm -C server test
+      - uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ghcr.io/${{ github.repository }}/server
+      - uses: docker/build-push-action@v4
+        with:
+          context: server
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  deploy:
+    if: vars.DEPLOYMENT_URL
+    environment: 
+      name: production
+      url: ${{ vars.DEPLOYMENT_URL }}
+    needs: [client, server]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        run: curl -f -s "${{ secrets.DEPLOYER_URL }}&client=${{ needs.client.outputs.version }}&server=${{ needs.server.outputs.version }}"

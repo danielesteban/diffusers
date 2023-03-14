@@ -1,0 +1,66 @@
+{
+  "name": "diffusers-server",
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "start": "pnpm build -w",
+    "test": "jest --verbose"
+  },
+  "type": "module",
+  "jest": {
+    "preset": "ts-jest",
+    "globalSetup": "<rootDir>/test/core/setup.ts",
+    "testMatch": [
+      "<rootDir>/test/*.test.ts"
+    ]
+  },
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.15.0",
+    "express-ws": "^5.0.2",
+    "gmail-send": "^1.8.14",
+    "helmet": "^6.0.1",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.1",
+    "multer": "1.4.5-lts.1",
+    "namor": "^3.0.1",
+    "nocache": "^3.0.4",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "protobufjs": "^7.2.2",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-run": "^3.0.1",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/express-ws": "^3.0.1",
+    "@types/jest": "^29.4.1",
+    "@types/jsonwebtoken": "^9.0.1",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^18.15.3",
+    "@types/passport": "^1.0.12",
+    "@types/passport-google-oauth20": "^2.0.11",
+    "@types/passport-local": "^1.0.35",
+    "@types/supertest": "^2.0.12",
+    "@types/uuid": "^9.0.1",
+    "@types/ws": "^8.5.4",
+    "jest": "^29.5.0",
+    "rollup": "^3.19.1",
+    "rollup-plugin-copy": "^3.4.0",
+    "source-map-support": "^0.5.21",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.0.5",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5"
+  }
+}

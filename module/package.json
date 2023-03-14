@@ -1,0 +1,16 @@
+{
+  "name": "diffusers-module",
+  "scripts": {
+    "build": "rollup -c rollup.config.js"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "rollup": "^3.19.1",
+    "rollup-plugin-copy": "^3.4.0",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5"
+  }
+}
