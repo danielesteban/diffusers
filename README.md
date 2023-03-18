@@ -34,7 +34,7 @@ Docker compose
 ```yaml
 services:
   worker:
-    image: ghcr.io/danielesteban/diffusers/worker:v0.0.1
+    image: ghcr.io/danielesteban/diffusers/worker:v0.0.2
     restart: always
     environment:
      - PIPELINES_DEPTH=True
@@ -48,4 +48,4 @@ volumes:
 
 Windows GUI
 
-[diffusers-worker-0.0.1.exe](https://github.com/danielesteban/diffusers/releases/download/v0.0.1/diffusers-worker-0.0.1.exe)
+[diffusers-worker-0.0.2.exe](https://github.com/danielesteban/diffusers/releases/download/v0.0.2/diffusers-worker-0.0.2.exe)

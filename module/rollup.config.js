@@ -31,7 +31,7 @@ export default {
           name: '@danielesteban/diffusers',
           author: 'Daniel Esteban Nombela',
           license: 'MIT',
-          version: '0.0.1',
+          version: process.env.VERSION || 'dev',
           module: './diffusers.js',
           type: 'module',
           types: './types',

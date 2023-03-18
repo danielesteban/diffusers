@@ -8,8 +8,6 @@ jobs:
   client:
     env:
       CLIENT_BASENAME: __CLIENT_BASENAME__
-      CLIENT_FONT: __CLIENT_FONT__
-      CLIENT_TITLE: __CLIENT_TITLE__
       SERVER_URL: __SERVER_URL__
     outputs:
       version: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
@@ -19,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - id: version
+        uses: battila7/get-version-action@v2
       - uses: pnpm/action-setup@v2
         with:
           version: 7
@@ -31,6 +31,8 @@ jobs:
         run: pnpm -C client install
       - name: Build
         run: pnpm -C client build
+        env:
+          VERSION: ${{ steps.version.outputs.version-without-v }}
       - uses: docker/login-action@v2
         with:
           registry: ghcr.io

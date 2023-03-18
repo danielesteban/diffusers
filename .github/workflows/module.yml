@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - id: version
+        uses: battila7/get-version-action@v2
       - uses: pnpm/action-setup@v2
         with:
           version: 7
@@ -25,6 +27,8 @@ jobs:
         run: pnpm -C module install
       - name: Build
         run: pnpm -C module build
+        env:
+          VERSION: ${{ steps.version.outputs.version-without-v }}
       - name: Publish
         run: cd module/dist && npm publish
         env:

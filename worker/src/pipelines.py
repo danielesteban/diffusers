@@ -1,8 +1,9 @@
-from diffusers import ControlNetModel, StableDiffusionControlNetPipeline, UniPCMultistepScheduler
+from diffusers import ControlNetModel, StableDiffusionControlNetPipeline
 from io import BytesIO
 from cv2 import Canny
 from numpy import array, concatenate, max
 from math import floor
+import os
 from PIL import Image, ImageOps
 from RealESRGAN import RealESRGAN
 import torch
@@ -65,10 +66,11 @@ class Diffusion:
       torch_dtype=torch_dtype,
       cache_dir='models',
     ).to(device)
+    self.pipeline.requires_safety_checker = False
     if torch.cuda.is_available():
-      self.pipeline.scheduler = UniPCMultistepScheduler.from_config(self.pipeline.scheduler.config)
-      self.pipeline.enable_xformers_memory_efficient_attention()
       self.pipeline.enable_model_cpu_offload()
+      if os.name != 'nt':
+        self.pipeline.unet = torch.compile(self.pipeline.unet)
 
   def run(self, image, negative_prompt, prompt, steps, strength):
     image = formatInput(image)

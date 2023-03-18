@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.7.1-base-ubuntu20.04
+FROM nvidia/cuda:11.8.0-base-ubuntu20.04
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG C.UTF-8
 
@@ -20,6 +20,6 @@ USER worker
 WORKDIR /home/worker
 RUN mkdir models
 COPY requirements.txt ./
-RUN python -m pip install --no-cache-dir --no-warn-script-location -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu117
+RUN python -m pip install --no-cache-dir --no-warn-script-location -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu118
 COPY src src
 CMD ["python", "src/cli.py"]

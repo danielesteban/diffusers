@@ -25,6 +25,7 @@ const outputPath = path.resolve(__dirname, 'dist');
 
 const basename = process.env.CLIENT_BASENAME || (codeServer ? '/proxy/8080/' : '/');
 const server = process.env.SERVER_URL || 'http://localhost:8081/';
+const version = process.env.VERSION || 'dev';
 
 export default {
   input: path.join(__dirname, 'src', 'main.ts'),
@@ -50,6 +51,7 @@ export default {
       preventAssignment: false,
       __BASENAME__: JSON.stringify(basename),
       __SERVER__: JSON.stringify(server),
+      __VERSION__: JSON.stringify(version),
     }),
     html({
       template: ({ files }) => (

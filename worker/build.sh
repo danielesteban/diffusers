@@ -4,5 +4,5 @@ pyinstaller --icon icons/ready.png --noconfirm --windowed \
   --add-data 'icons/*.png;icons' \
   --copy-metadata tqdm --copy-metadata regex --copy-metadata requests \
   --copy-metadata packaging --copy-metadata filelock --copy-metadata numpy \
-  --copy-metadata tokenizers --collect-all transformers --collect-all xformers \
+  --copy-metadata tokenizers --collect-all transformers \
   src/gui.py

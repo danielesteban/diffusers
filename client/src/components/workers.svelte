@@ -9,6 +9,9 @@
       clearInterval(interval)
     );
   });
+
+  // @ts-ignore
+  const version: string = __VERSION__;
 </script>
 
 <div class="container">
@@ -21,7 +24,7 @@
       Docker compose
 <pre>services:
   client:
-    image: ghcr.io/danielesteban/diffusers/worker:v0.0.1
+    image: ghcr.io/danielesteban/diffusers/worker:v{version}
     restart: always
     environment:
      - PIPELINES_DEPTH=True
@@ -38,11 +41,11 @@ volumes:
       <div>
         <a
           class="link"
-          href="https://github.com/danielesteban/diffusers/releases/download/v0.0.1/diffusers-worker-0.0.1.exe"
+          href="https://github.com/danielesteban/diffusers/releases/download/v{version}/diffusers-worker-v{version}.exe"
           rel="noopener noreferrer"
           target="_blank"
         >
-          diffusers-worker-0.0.1.exe
+          diffusers-worker-v{version}.exe
         </a>
       </div>
     </div>

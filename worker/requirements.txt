@@ -1,9 +1,7 @@
-accelerate==0.17.0
 asyncio==3.4.3
 diffusers[torch]==0.14.0
 protobuf==4.22.1
 git+https://github.com/ai-forever/Real-ESRGAN.git@362a0316878f41dbdfbb23657b450c3353de5acf#egg=RealESRGAN
-torch==1.13.1+cu117
-transformers==4.26.1
+torch==2.0.0+cu118
+transformers==4.27.1
 websockets==10.4
-xformers==0.0.16

@@ -1,5 +1,5 @@
 #define AppName "diffusers-worker"
-#define AppVersion "0.0.1"
+#define AppVersion "0.0.2"
 #define AppPublisher "DaniGatunes"
 #define AppURL "https://diffusers.gatunes.com/"
 #define AppExeName "gui.exe"
@@ -16,7 +16,7 @@ DefaultDirName={autopf}\{#AppName}
 DisableDirPage=auto
 DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
-OutputBaseFilename={#AppName}-{#AppVersion}
+OutputBaseFilename={#AppName}-v{#AppVersion}
 OutputDir=dist
 Compression=lzma
 SolidCompression=yes
