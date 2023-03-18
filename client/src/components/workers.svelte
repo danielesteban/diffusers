@@ -77,28 +77,13 @@ volumes:
   
   <div class="section">
     <h1>
-      Depth
+      Jobs
     </h1>
     <div>
-      <Graph data={$Jobs} field="depth" />
-    </div>
-  </div>
-
-  <div class="section">
-    <h1>
-      Diffusion
-    </h1>
-    <div>
-      <Graph data={$Jobs} field="diffusion" />
-    </div>
-  </div>
-
-  <div class="section">
-    <h1>
-      Upscale
-    </h1>
-    <div>
-      <Graph data={$Jobs} field="upscale" />
+      <Graph
+        data={$Jobs}
+        fields={['depth', 'diffusion', 'upscale']}
+      />
     </div>
   </div>
 </div>
