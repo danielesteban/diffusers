@@ -14,6 +14,12 @@ export default (app: Application) => {
     requireAuth(client.list)
   );
 
+  app.get(
+    '/client/:id/jobs',
+    preventCache,
+    requireAuth(client.stats)
+  );
+
   app.post(
     '/client',
     preventCache,

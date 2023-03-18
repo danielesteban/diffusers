@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import Graph from 'components/graph.svelte';
   import Edit from 'icons/edit.svelte';
   import Plus from 'icons/plus.svelte';
   import Trash from 'icons/trash.svelte';
@@ -51,6 +52,12 @@
           <div class="key">{client.key}</div>
           <div><input type="text" value={client.origin} on:change={update(client.id, 'origin')} /></div>
         </div>
+        <div class="jobs">
+          <Graph
+            data={client.jobs}
+            fields={['depth', 'diffusion', 'upscale']}
+          />
+        </div>
         {#if isEditing}
           <div class="actions">
             <button
@@ -84,7 +91,7 @@
   }
   .client {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
   }
   .client:nth-child(even) {
     background: rgba(64, 64, 64, .1);
@@ -95,9 +102,14 @@
     gap: 0.5rem;
     padding: 1rem 2rem;
   }
+  .jobs {
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+  }
   .actions {
     display: flex;
-    padding: 1rem 2rem;
+    padding: 1rem 2rem 1rem 0;
     align-items: center;
   }
   .client input[type="text"] {

@@ -3,6 +3,7 @@ import multer from 'multer';
 import protobuf from 'protobufjs';
 import { v4 as uuid } from 'uuid';
 import type * as ws from 'ws';
+import Stats from '../core/stats';
 import { Job as Log } from '../models';
 
 const Messages = protobuf.loadSync('dist/messages.proto');
@@ -120,29 +121,8 @@ export const list = (_req: Request, res: Response) => (
   }, { depth: 0, diffusion: 0, upscale: 0 }))
 );
 
-export const stats = (_req: Request, res: Response, next: NextFunction) => {
-  const now = new Date();
-  const fourWeeksAgo = new Date(Date.UTC(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate() - 28
-  ));
-  Log.aggregate()
-    .match({ createdAt: { $gt: fourWeeksAgo } })
-    .group({
-      _id: { date: { $dateToString: { format: '%Y%m%d', date: '$createdAt' } }, pipeline: '$pipeline' },
-      count: { $sum: 1 },
-    })
-    .then((results) => (
-      res.json(
-        results.reduce((results, { _id: { date, pipeline }, count }) => {
-          if (!results[date]) {
-            results[date] = [0, 0, 0];
-          }
-          results[date][['depth', 'diffusion', 'upscale'].indexOf(pipeline)] = count;
-          return results;
-        }, {})
-      )
-    ))
-    .catch(next);
-};
+export const stats = (_req: Request, res: Response, next: NextFunction) => (
+  Stats()
+    .then((results) => res.json(results))
+    .catch(next)
+);

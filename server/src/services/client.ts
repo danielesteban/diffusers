@@ -5,6 +5,7 @@ import { body, param } from 'express-validator';
 import namor from 'namor';
 import type { AuthorizedRequest } from '../core/auth';
 import { checkValidationResult } from '../core/errorHandler';
+import Stats from '../core/stats';
 import { Client } from '../models';
 
 export const create = (req: AuthorizedRequest, res: Response, next: NextFunction) => (
@@ -33,6 +34,16 @@ export const remove = [
     Client.deleteOne({ _id: req.params.id, user: req.user.id })
       .orFail(notFound())
       .then(() => res.json('OK'))
+      .catch(next)
+  ),
+];
+
+export const stats = [
+  param('id')
+    .isMongoId(),
+  (req: AuthorizedRequest, res: Response, next: NextFunction) => (
+    Stats(req.params.id)
+      .then((results) => res.json(results))
       .catch(next)
   ),
 ];

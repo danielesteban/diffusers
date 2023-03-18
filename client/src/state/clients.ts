@@ -3,12 +3,19 @@ import { request } from 'state/server';
 import type { User as UserType } from 'state/user';
 import User from 'state/user';
 
+type ClientJobs = Record<string, {
+  depth: number;
+  diffusion: number;
+  upscale: number;
+}>;
+
 type Client = {
   id: string;
   name: string;
   key: string;
   origin: string;
   createdAt: Date;
+  jobs: ClientJobs;
 };
 
 const { subscribe, set, update } = writable<Client[]>([]);
@@ -49,13 +56,45 @@ const fetch = <T>({
   });
 };
 
+const refreshJobs = (id: string) => {
+  if (!user) {
+    throw new Error();
+  }
+  return request<Record<string, number[]>>({
+    endpoint: `client/${id}/jobs`,
+    session: user.session,
+  })
+    .then((data) => {
+      const jobs = Object.keys(data).reduce((jobs, date) => {
+        const [depth, diffusion, upscale] = data[date];
+        jobs[date] = { depth, diffusion, upscale };
+        return jobs;
+      }, {} as ClientJobs);
+      update((clients) => clients.map((c) => {
+        if (c.id === id) {
+          return { ...c, jobs };
+        }
+        return c;
+      }));
+    })
+    .catch(() => {});
+};
+
 export default {
   subscribe,
   refresh() {
     controllers.forEach((controller) => controller.abort());
     controllers.clear();
     return fetch<Client[]>()
-      .then(set)
+      .then((clients) => {
+        set(clients.map((c) => {
+          refreshJobs(c.id);
+          return {
+            ...c,
+            jobs: {},
+          };
+        }));
+      })
       .catch((e) => {
         if (e.name !== 'AbortError') {
           throw e;
@@ -64,7 +103,7 @@ export default {
   },
   create() {
     return fetch<Client>({ endpoint: 'client', method: 'POST' })
-      .then((client) => update((clients) => [client, ...clients]))
+      .then((client) => update((clients) => [{ ...client, jobs: {} }, ...clients]))
       .catch((e) => {
         if (e.name !== 'AbortError') {
           throw e;
@@ -88,10 +127,7 @@ export default {
     })
       .then(() => update((clients) => clients.map((c) => {
         if (c.id === id) {
-          return {
-            ...c,
-            ...data,
-          };
+          return { ...c, ...data };
         }
         return c;
       })))
@@ -100,5 +136,5 @@ export default {
           throw e;
         }
       });
-  }
+  },
 };

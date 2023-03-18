@@ -23,8 +23,6 @@
     const size = width / days;
     canvas.width = width;
     canvas.height = height;
-    ctx.lineWidth = 0.1;
-    ctx.strokeStyle = '#000';
 
     const max = Object.keys(data).reduce((max, key) => {
       if (data[key]) {
@@ -46,7 +44,7 @@
       const key = `${year}${month < 9 ? '0' : ''}${month + 1}${date < 10 ? '0' : ''}${date}`;
       time = new Date(Date.UTC(year, month, date - 1, hours));
       if (day === 1) {
-        ctx.fillStyle = '#444';
+        ctx.fillStyle = '#333';
         ctx.fillRect(
           size * i, 0,
           size, height
@@ -54,16 +52,18 @@
       }
       if (data[key]) {
         let offset = height;
+        ctx.lineWidth = 0.5;
         ctx.fillStyle = '#393';
+        ctx.strokeStyle = '#111';
         fields.forEach((field) => {
           const value = data[key][field];
-          const h = value * ratio;
+          const h = Math.floor(value * ratio);
+          const x = size * i;
+          const y = offset - h;
+          ctx.fillRect(x, y, size, h);
           ctx.beginPath();
-          ctx.rect(
-            size * i, offset - h,
-            size, h
-          );
-          ctx.fill();
+          ctx.moveTo(x, y);
+          ctx.lineTo(x + size, y);
           ctx.stroke();
           offset -= h;
         });
@@ -75,6 +75,8 @@
         values[i][field] = `${data[key] && data[key][field] || 0}`;
       });
       if (i > 0) {
+        ctx.lineWidth = 0.1;
+        ctx.strokeStyle = '#000';
         ctx.beginPath();
         ctx.moveTo(size * i, 0);
         ctx.lineTo(size * i, height);
@@ -144,6 +146,7 @@
     white-space: nowrap;
     text-transform: capitalize;
     line-height: 1rem;
+    z-index: 1;
   }
   .date {
     color: #999;
