@@ -72,9 +72,18 @@ class Diffusion:
       if os.name != 'nt':
         self.pipeline.unet = torch.compile(self.pipeline.unet)
 
-  def run(self, image, negative_prompt, prompt, steps, strength):
+  def run(
+    self,
+    image,
+    max_threshold,
+    min_threshold,
+    negative_prompt,
+    prompt,
+    steps,
+    strength
+  ):
     image = formatInput(image)
-    image = Canny(array(image), 100, 200)
+    image = Canny(array(image), min_threshold, max_threshold)
     image = image[:, :, None]
     image = concatenate([image, image, image], axis=2)
     image = Image.fromarray(image)

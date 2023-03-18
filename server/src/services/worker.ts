@@ -79,6 +79,8 @@ export const job = (job: string) => [
       image: req.file && req.file.buffer,
     };
     if (job === 'diffusion') {
+      payload.max_threshold = Math.min(Math.max(parseInt(req.body.max_threshold, 10) || 255, 0), 255);
+      payload.min_threshold = Math.min(Math.max(parseInt(req.body.min_threshold, 10) || 85, 0), 255);
       payload.negative_prompt = (req.body.negative_prompt || '').trim();
       payload.prompt = (req.body.prompt || '').trim();
       payload.steps = Math.min(Math.max(parseInt(req.body.steps, 10) || 30, 1), 100);

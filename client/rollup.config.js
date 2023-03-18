@@ -19,11 +19,10 @@ dotenv.config();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const { compilerOptions: { paths: aliases } } = JSON.parse(fs.readFileSync(path.join(__dirname, 'tsconfig.json')));
-const codeServer = !!process.env.CODE_SERVER;
 const production = !process.env.ROLLUP_WATCH;
 const outputPath = path.resolve(__dirname, 'dist');
 
-const basename = process.env.CLIENT_BASENAME || (codeServer ? '/proxy/8080/' : '/');
+const basename = process.env.CLIENT_BASENAME || '/';
 const server = process.env.SERVER_URL || 'http://localhost:8081/';
 const version = process.env.VERSION || 'dev';
 
@@ -77,10 +76,7 @@ export default {
         historyApiFallback: true,
         port: 8080,
       }),
-      livereload({
-        clientUrl: codeServer && '/proxy/35729/livereload.js?snipver=1&port=443&path=proxy/35729/livereload',
-        watch: outputPath,
-      }),
+      livereload(outputPath),
     ]),
   ],
   watch: { clearScreen: false },

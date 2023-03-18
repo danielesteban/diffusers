@@ -54,22 +54,39 @@ class Diffusers {
 
   diffusion(
     image: Blob,
-    prompt: string,
-    negativePrompt?: string,
-    strength?: number,
-    steps?: number
+    {
+      maxThreshold,
+      minThreshold,
+      negativePrompt,
+      prompt,
+      steps,
+      strength,
+    }: {
+      minThreshold?: number;
+      maxThreshold?: number;
+      negativePrompt?: string;
+      prompt: string;
+      steps?: number;
+      strength?: number;
+    }
   ) {
     const body = new FormData();
     body.append('image', image);
-    body.append('prompt', prompt);
+    if (maxThreshold !== undefined) {
+      body.append('max_threshold', `${maxThreshold}`);
+    }
+    if (minThreshold !== undefined) {
+      body.append('min_threshold', `${minThreshold}`);
+    }
     if (negativePrompt !== undefined) {
       body.append('negative_prompt', negativePrompt);
     }
-    if (steps !== undefined) {
-      body.append('steps', `${steps}`);
-    }
+    body.append('prompt', prompt);
     if (strength !== undefined) {
       body.append('strength', `${strength}`);
+    }
+    if (steps !== undefined) {
+      body.append('steps', `${steps}`);
     }
     return this.request(body, 'diffusion');
   }

@@ -18,9 +18,11 @@ const input = await fetch('https://example.com/input_image.png');
 const image = await input.blob();
 const generated = await diffusers.diffusion(
   image,
-  'disco dancer with colorful lights',
-  'deformed, distorted, disfigured',
-  '0.5'
+  {
+    prompt: 'disco dancer with colorful lights',
+    negativePrompt: 'deformed, distorted, disfigured',
+    strength: '0.5',
+  }
 );
 const upscaled = await diffusers.upscale(generated);
 

@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import descriptor_pb2 as google_dot_protobuf_dot_descriptor__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0emessages.proto\x1a google/protobuf/descriptor.proto\">\n\tPipelines\x12\r\n\x05\x64\x65pth\x18\x01 \x01(\x08\x12\x11\n\tdiffusion\x18\x02 \x01(\x08\x12\x0f\n\x07upscale\x18\x03 \x01(\x08\"8\n\x06\x43onfig\x12\x1d\n\tpipelines\x18\x01 \x01(\x0b\x32\n.Pipelines\x12\x0f\n\x07version\x18\x02 \x01(\t\"\x19\n\x08\x44\x65pthJob\x12\r\n\x05image\x18\x01 \x01(\x0c\"g\n\x0c\x44iffusionJob\x12\r\n\x05image\x18\x01 \x01(\x0c\x12\x0e\n\x06prompt\x18\x02 \x01(\t\x12\x17\n\x0fnegative_prompt\x18\x03 \x01(\t\x12\r\n\x05steps\x18\x04 \x01(\x05\x12\x10\n\x08strength\x18\x05 \x01(\x02\"\x1b\n\nUpscaleJob\x12\r\n\x05image\x18\x01 \x01(\x0c\"l\n\x03Job\x12\x1a\n\x05\x64\x65pth\x18\x01 \x01(\x0b\x32\t.DepthJobH\x00\x12\"\n\tdiffusion\x18\x02 \x01(\x0b\x32\r.DiffusionJobH\x00\x12\x1e\n\x07upscale\x18\x03 \x01(\x0b\x32\x0b.UpscaleJobH\x00\x42\x05\n\x03job:8\n\x10protocol_version\x12\x1c.google.protobuf.FileOptions\x18\xb8\x8e\x03 \x01(\tB\t\xc2\xf3\x18\x05\x30.0.1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0emessages.proto\x1a google/protobuf/descriptor.proto\">\n\tPipelines\x12\r\n\x05\x64\x65pth\x18\x01 \x01(\x08\x12\x11\n\tdiffusion\x18\x02 \x01(\x08\x12\x0f\n\x07upscale\x18\x03 \x01(\x08\"8\n\x06\x43onfig\x12\x1d\n\tpipelines\x18\x01 \x01(\x0b\x32\n.Pipelines\x12\x0f\n\x07version\x18\x02 \x01(\t\"\x19\n\x08\x44\x65pthJob\x12\r\n\x05image\x18\x01 \x01(\x0c\"\x95\x01\n\x0c\x44iffusionJob\x12\r\n\x05image\x18\x01 \x01(\x0c\x12\x15\n\rmax_threshold\x18\x02 \x01(\x05\x12\x15\n\rmin_threshold\x18\x03 \x01(\x05\x12\x17\n\x0fnegative_prompt\x18\x04 \x01(\t\x12\x0e\n\x06prompt\x18\x05 \x01(\t\x12\r\n\x05steps\x18\x06 \x01(\x05\x12\x10\n\x08strength\x18\x07 \x01(\x02\"\x1b\n\nUpscaleJob\x12\r\n\x05image\x18\x01 \x01(\x0c\"l\n\x03Job\x12\x1a\n\x05\x64\x65pth\x18\x01 \x01(\x0b\x32\t.DepthJobH\x00\x12\"\n\tdiffusion\x18\x02 \x01(\x0b\x32\r.DiffusionJobH\x00\x12\x1e\n\x07upscale\x18\x03 \x01(\x0b\x32\x0b.UpscaleJobH\x00\x42\x05\n\x03job:8\n\x10protocol_version\x12\x1c.google.protobuf.FileOptions\x18\xb8\x8e\x03 \x01(\tB\t\xc2\xf3\x18\x05\x30.0.2b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -23,17 +23,17 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   google_dot_protobuf_dot_descriptor__pb2.FileOptions.RegisterExtension(protocol_version)
 
   DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'\302\363\030\0050.0.1'
+  DESCRIPTOR._serialized_options = b'\302\363\030\0050.0.2'
   _globals['_PIPELINES']._serialized_start=52
   _globals['_PIPELINES']._serialized_end=114
   _globals['_CONFIG']._serialized_start=116
   _globals['_CONFIG']._serialized_end=172
   _globals['_DEPTHJOB']._serialized_start=174
   _globals['_DEPTHJOB']._serialized_end=199
-  _globals['_DIFFUSIONJOB']._serialized_start=201
-  _globals['_DIFFUSIONJOB']._serialized_end=304
-  _globals['_UPSCALEJOB']._serialized_start=306
-  _globals['_UPSCALEJOB']._serialized_end=333
-  _globals['_JOB']._serialized_start=335
-  _globals['_JOB']._serialized_end=443
+  _globals['_DIFFUSIONJOB']._serialized_start=202
+  _globals['_DIFFUSIONJOB']._serialized_end=351
+  _globals['_UPSCALEJOB']._serialized_start=353
+  _globals['_UPSCALEJOB']._serialized_end=380
+  _globals['_JOB']._serialized_start=382
+  _globals['_JOB']._serialized_end=490
 # @@protoc_insertion_point(module_scope)

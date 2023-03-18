@@ -40,6 +40,8 @@ class Worker(object):
     if self.pipelines['diffusion'] is not None and job.HasField('diffusion'):
       return self.pipelines['diffusion'].run(
         BytesIO(job.diffusion.image),
+        job.diffusion.max_threshold,
+        job.diffusion.min_threshold,
         job.diffusion.negative_prompt,
         job.diffusion.prompt,
         job.diffusion.steps,

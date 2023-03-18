@@ -6,9 +6,6 @@ on:
 
 jobs:
   client:
-    env:
-      CLIENT_BASENAME: __CLIENT_BASENAME__
-      SERVER_URL: __SERVER_URL__
     outputs:
       version: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
     permissions:
@@ -32,6 +29,8 @@ jobs:
       - name: Build
         run: pnpm -C client build
         env:
+          CLIENT_BASENAME: __CLIENT_BASENAME__
+          SERVER_URL: __SERVER_URL__
           VERSION: ${{ steps.version.outputs.version-without-v }}
       - uses: docker/login-action@v2
         with:
