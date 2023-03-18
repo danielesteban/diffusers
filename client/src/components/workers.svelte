@@ -1,8 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import Graph from 'components/graph.svelte';
+  import Jobs from 'state/jobs';
   import Workers from 'state/workers';
 
   onMount(() => {
+    Jobs.refresh();
     Workers.refresh();
     const interval = setInterval(Workers.refresh, 30000);
     return () => (
@@ -69,6 +72,33 @@ volumes:
         <div class:available={$Workers.upscale}>{$Workers.upscale}</div>
         Upscale
       </div>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h1>
+      Depth
+    </h1>
+    <div>
+      <Graph data={$Jobs} field="depth" />
+    </div>
+  </div>
+
+  <div class="section">
+    <h1>
+      Diffusion
+    </h1>
+    <div>
+      <Graph data={$Jobs} field="diffusion" />
+    </div>
+  </div>
+
+  <div class="section">
+    <h1>
+      Upscale
+    </h1>
+    <div>
+      <Graph data={$Jobs} field="upscale" />
     </div>
   </div>
 </div>

@@ -15,6 +15,7 @@ export default (app: Application) => (
         if (client.origin !== origin) {
           throw new Error();
         }
+        (req as any).client = client._id.toHexString();
       }) : Promise.reject()
     ))
       .then(() => next(null, { origin: true }))

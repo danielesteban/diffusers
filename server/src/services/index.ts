@@ -85,6 +85,12 @@ export default (app: Application) => {
     worker.list
   );
 
+  app.get(
+    '/jobs',
+    preventCache,
+    worker.stats
+  );
+
   app.post(
     `/depth`,
     preventCache,
