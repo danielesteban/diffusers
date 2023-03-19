@@ -52,14 +52,17 @@
       }
       if (data[key]) {
         let offset = height;
+        ctx.fillStyle = '#363';
         ctx.lineWidth = 0.5;
-        ctx.fillStyle = '#393';
-        ctx.strokeStyle = '#111';
+        ctx.strokeStyle = '#000';
         fields.forEach((field) => {
           const value = data[key][field];
           const h = Math.floor(value * ratio);
           const x = size * i;
           const y = offset - h;
+          if (h === 0) {
+            return;
+          }
           ctx.fillRect(x, y, size, h);
           ctx.beginPath();
           ctx.moveTo(x, y);

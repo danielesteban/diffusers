@@ -1,6 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import Graph from 'components/graph.svelte';
+  import Docker from 'icons/docker.svelte';
+  import Windows from 'icons/windows.svelte';
   import Jobs from 'state/jobs';
   import Workers from 'state/workers';
 
@@ -24,7 +26,10 @@
     </h1>
 
     <div class="entry">
-      Docker compose
+      <div class="name">
+        <Docker />
+        Docker compose
+      </div>
 <pre>services:
   client:
     image: ghcr.io/danielesteban/diffusers/worker:v{version}
@@ -40,7 +45,10 @@ volumes:
     </div>
 
     <div class="entry">
-      Windows GUI
+      <div class="name">
+        <Windows />
+        Windows GUI
+      </div>
       <div>
         <a
           class="link"
@@ -96,18 +104,23 @@ volumes:
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 3rem;
     padding: 2rem;
   }
   .section {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
   }
   .entry {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+  }
+  .name {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
   }
   .workers {
     display: grid;
