@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import html from '@rollup/plugin-html';
 import livereload from 'rollup-plugin-livereload';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import { parse } from 'semver';
 import postcss from 'rollup-plugin-postcss';
 import replace from '@rollup/plugin-replace';
 import serve from 'rollup-plugin-serve';
@@ -24,7 +25,7 @@ const outputPath = path.resolve(__dirname, 'dist');
 
 const basename = process.env.CLIENT_BASENAME || '/';
 const server = process.env.SERVER_URL || 'http://localhost:8081/';
-const version = process.env.VERSION || 'dev';
+const version = parse(process.env.VERSION)?.version || 'dev';
 
 export default {
   input: path.join(__dirname, 'src', 'main.ts'),

@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import copy from 'rollup-plugin-copy';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import { parse } from 'semver';
 import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 
@@ -31,7 +32,7 @@ export default {
           name: '@danielesteban/diffusers',
           author: 'Daniel Esteban Nombela',
           license: 'MIT',
-          version: process.env.VERSION || 'dev',
+          version: parse(process.env.VERSION)?.version || 'dev',
           module: './diffusers.js',
           type: 'module',
           types: './types',
