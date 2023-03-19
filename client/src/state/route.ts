@@ -1,5 +1,5 @@
 import { match, MatchFunction } from 'path-to-regexp';
-import type { ComponentType } from 'svelte';
+import { ComponentType } from 'svelte';
 import { writable, Unsubscriber } from 'svelte/store';
 import User from 'state/user';
 

@@ -15,6 +15,16 @@ class Diffusers {
     this.retryDelay = retryDelay;
     this.server = server;
   }
+  
+  private checkStatus(status: number) {
+    const { client } = this;
+    if (status === 401) {
+      throw new Error(`The application key: '${client}' is not valid for the origin: '${location.origin}'`);
+    }
+    if (status < 200 || status >= 400) {
+      throw new Error(`STATUS:${status}`);
+    }
+  }
 
   private request(body: FormData, endpoint: string) {
     const { client, retry, retryDelay, server } = this;
@@ -23,16 +33,12 @@ class Diffusers {
       const request = () => (
         fetch(`${server}${endpoint}?client=${client}`, { body, method: 'POST' })
           .then((res) => {
-            if (res.status < 200 || res.status >= 400) {
-              throw new Error(`STATUS:${res.status}`);
-            }
+            this.checkStatus(res.status);
             return res.blob();
           })
           .then(resolve)
           .catch((err) => {
-            if (err.message === 'STATUS:401') {
-              err = new Error(`The application key: '${client}' is not valid for the origin: '${location.origin}'`);
-            } else if (err.message === 'STATUS:503') {
+            if (err.message === 'STATUS:503') {
               if (attempt++ < retry) {
                 setTimeout(request, retryDelay);
                 return;
@@ -44,6 +50,18 @@ class Diffusers {
       );
       request();
     });
+  }
+
+  available() {
+    const { client, server } = this;
+    return fetch(`${server}workers?client=${client}`)
+      .then((res) => {
+        this.checkStatus(res.status);
+        return res.json();
+      })
+      .then((workers) => (
+        workers as { depth: number; diffusion: number; upscale: number; }
+      ));
   }
 
   depth(image: Blob) {

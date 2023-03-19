@@ -1,7 +1,6 @@
 import { writable } from 'svelte/store';
 import { request } from 'state/server';
-import type { User as UserType } from 'state/user';
-import User from 'state/user';
+import User, { User as UserType } from 'state/user';
 
 type ClientJobs = Record<string, {
   depth: number;
