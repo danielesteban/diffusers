@@ -108,7 +108,7 @@
       values[i].date,
       ...fields.map((field) => `${field}: ${values[i][field]}`),
     ];
-    tooltip = { ...tooltip, x: (i + 0.5) * size, text };
+    tooltip = { ...tooltip, x: 1 + (i + 0.5) * size, text };
   };
 </script>
 
@@ -152,6 +152,19 @@
     text-transform: capitalize;
     line-height: 1rem;
     z-index: 1;
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5);
+  }
+  .tooltip::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    content: "";
+    width: 0; 
+    height: 0; 
+    border-left: 0.375rem solid transparent;
+    border-right: 0.375rem solid transparent;
+    border-bottom: 0.375rem solid rgba(0, 0, 0, .6);
   }
   .date {
     color: #999;
