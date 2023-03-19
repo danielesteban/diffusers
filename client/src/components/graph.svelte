@@ -10,10 +10,12 @@
     x: 0,
   };
 
+  let current: typeof data;
   let graph: HTMLDivElement;
   let canvas: HTMLCanvasElement;
   let values: Record<string, string>[];
-  $: if (graph && canvas && data) {
+  $: if (graph && canvas && data && data !== current) {
+    current = data;
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       throw new Error();

@@ -48,9 +48,9 @@
     {#each $Clients as client (client.id)}
       <div class="client">
         <div class="meta">
-          <div><input type="text" value={client.name} on:change={update(client.id, 'name')} /></div>
+          <div class="name"><input type="text" value={client.name} on:change={update(client.id, 'name')} /></div>
           <div class="key">{client.key}</div>
-          <div><input type="text" value={client.origin} on:change={update(client.id, 'origin')} /></div>
+          <div class="origin"><input type="text" value={client.origin} on:change={update(client.id, 'origin')} /></div>
         </div>
         <div class="jobs">
           <Graph
@@ -119,7 +119,13 @@
     background: transparent;
     width: 100%;
   }
+  .name {
+    font-weight: 700;
+  }
   .key {
     user-select: all;
+  }
+  .origin {
+    color: #aaa;
   }
 </style>
